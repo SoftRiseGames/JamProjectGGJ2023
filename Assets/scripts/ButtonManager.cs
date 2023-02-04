@@ -27,8 +27,8 @@ public class ButtonManager : MonoBehaviour
 
     }
     public void hpupgrade()
-    { 
-       
+    {
+        stats.maxHP = stats.maxHP + 10;
         Time.timeScale = 1;
         upgradeScreen.SetActive(false);
     }

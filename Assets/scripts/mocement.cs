@@ -32,6 +32,6 @@ public class mocement : MonoBehaviour
         vertical = Input.GetAxis("Vertical");
         rb.velocity = new Vector2(horizontal * speed, vertical * speed);
 
-        LimitPos();
+        
     }
 }

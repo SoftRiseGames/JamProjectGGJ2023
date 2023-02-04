@@ -50,8 +50,16 @@ public class gunScript : MonoBehaviour
         gunChange();
         activatepoolHP();
         activatepoolXP();
-       
-        
+
+        if (bulletxp != null && !isHealth && ReloadGun > 0)
+        {
+            if (Input.GetMouseButtonUp(0))
+            {
+                gunXP.GetComponent<Animator>().SetBool("isXPok", false);
+            }
+        }
+
+
     }
 
     void gunChange()
@@ -69,18 +77,18 @@ public class gunScript : MonoBehaviour
 
         if (isHealth)
         {
-            /*
+          
             gunHP.gameObject.SetActive(true);
             gunXP.gameObject.SetActive(false);
-            */
+           
         }
            
         else if (!isHealth)
         {
-            /*
+           
             gunHP.gameObject.SetActive(false);
             gunXP.gameObject.SetActive(true);
-            */
+            
         }
            
     }
@@ -144,9 +152,12 @@ public class gunScript : MonoBehaviour
             bulletActivateXP.gameObject.transform.position = bulletPoint.gameObject.transform.position;
             bulletActivateXP.gameObject.transform.rotation = this.gameObject.transform.rotation;
             bulletActivateXP.SetActive(true);
+            gunXP.GetComponent<Animator>().SetBool("isXPok", true);
             noiseHandler.AddNoise(10);
             bulletCount.text = "Bullet Count: " + ReloadGun;  
         }
+
+      
     }
      IEnumerator reload(float timer)
     {

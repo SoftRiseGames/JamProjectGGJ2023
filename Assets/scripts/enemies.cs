@@ -7,7 +7,7 @@ public class enemies : MonoBehaviour
     public WaweManager waweManager;
     public Transform character;
     public Rigidbody2D rb;
-    
+    public ParticleSystem particle;
     private bool inRange;
     private bool onCooldown;
     public float range;
@@ -16,22 +16,31 @@ public class enemies : MonoBehaviour
     public float basedHeatlh;
     public float timeToShoot;
     public int damage;
-    
+    public enemies instance;
     public int xpReward;
     public int hpReward;
+
+    public float maxrange;
+    public float minrange;
+    float randomize;
 
     void Start()
     {
         waweManager = GameObject.Find("Wawe Manager").GetComponent<WaweManager>();
         character = GameObject.Find("character").transform;
         rb = GetComponent<Rigidbody2D>();
+        range = Random.Range(minrange, maxrange);
+
+        if (instance == null)
+            instance = this;
     }
 
     // Update is called once per frame
     void Update()
     {
-        inRange = Vector2.Distance(this.gameObject.transform.position, character.gameObject.transform.position) < range;
         
+        inRange = Vector2.Distance(this.gameObject.transform.position, character.gameObject.transform.position) < range;
+       
         enemyexen();
         enemyMovement();
         TryShoot();
@@ -40,7 +49,7 @@ public class enemies : MonoBehaviour
     void enemyMovement()
     {
         if(inRange == false)
-            transform.position = Vector2.MoveTowards(this.gameObject.transform.position, character.gameObject.transform.position, 0.01f);
+            transform.position = Vector2.MoveTowards(this.gameObject.transform.position, character.gameObject.transform.position,0.02f);
     }
 
     private void TryShoot(){
@@ -66,22 +75,26 @@ public class enemies : MonoBehaviour
     private void Hurt(GameObject bullet, float damage){
         bullet.SetActive(false);
         basedHeatlh = basedHeatlh - character.GetComponent<gunScript>().HPgunPower;
-        
-        if(basedHeatlh < 0)
+
+        if (basedHeatlh <= 0)
             Death();
+            
     }
 
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.gameObject.tag == "bullet"){
+          
             Hurt(collision.gameObject,character.GetComponent<gunScript>().HPgunPower);
+            StartCoroutine(colortimer());
             character.GetComponent<Stats>().AddHP(hpReward);
         }        
 
         
         if(collision.gameObject.tag == "bulletXP"){
             Hurt(collision.gameObject,character.GetComponent<gunScript>().XPgunPower);
+            StartCoroutine(colortimer());
             character.GetComponent<Stats>().AddXP(xpReward);
         }
 
@@ -95,7 +108,16 @@ public class enemies : MonoBehaviour
 
     void Death()
     {
+
+        Instantiate(particle, instance.gameObject.transform.position, Quaternion.identity);
         waweManager.enemies.Remove(gameObject);
         Destroy(this.gameObject);
+    }
+   
+    IEnumerator colortimer()
+    {
+        this.gameObject.transform.GetComponent<SpriteRenderer>().color = Color.red;
+        yield return new WaitForSeconds(.1f);
+        this.gameObject.transform.GetComponent<SpriteRenderer>().color = Color.white;
     }
 }
