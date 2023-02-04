@@ -798,7 +798,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bullet: {fileID: 4038380245263640744, guid: f9e8c30a41478d5469fcc43f0dadb315, type: 3}
-  bulletxp: {fileID: 4038380245263640744, guid: f9e8c30a41478d5469fcc43f0dadb315, type: 3}
+  bulletxp: {fileID: 4038380245263640744, guid: 450d632e59d5e13429f6c12e3488184e, type: 3}
   gunHP: {fileID: 0}
   gunXP: {fileID: 0}
   poolListHealth: []
