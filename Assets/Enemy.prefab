@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 5010046434976348157}
   m_Layer: 0
   m_Name: Enemy
-  m_TagString: Untagged
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 5010046434976348154}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 12.234952, y: -0.6055908, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.6, y: 0.6, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -99,15 +99,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c67e5702014a19449fd010113c92116, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  waweManager: {fileID: 0}
   character: {fileID: 0}
   rb: {fileID: 5010046434976348153}
-  range: 5
+  range: 8
   enemyBullet: {fileID: 4038380245263640744, guid: d9820cd3f6dcebd4da015e4dd445b2f7, type: 3}
   basedHeatlh: 100
-  timeToShoot: 3
-  damage: 5
+  timeToShoot: 2
+  damage: 10
   xpReward: 5
-  hpReward: 2
+  hpReward: 1
 --- !u!50 &5010046434976348153
 Rigidbody2D:
   serializedVersion: 4

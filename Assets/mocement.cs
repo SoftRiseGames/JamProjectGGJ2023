@@ -12,6 +12,11 @@ public class mocement : MonoBehaviour
     
     Vector3 mouseExens;
 
+    private void LimitPos(){
+        float clampX = Mathf.Clamp(transform.position.x,-22.5f,22.5f);
+        float clampY = Mathf.Clamp(transform.position.y,-13.5f,13.5f); 
+        transform.position = new Vector3(clampX,clampY,0);
+    }
     // Update is called once per frame
     void Update()
     {
@@ -26,5 +31,7 @@ public class mocement : MonoBehaviour
         horizontal = Input.GetAxis("Horizontal");
         vertical = Input.GetAxis("Vertical");
         rb.velocity = new Vector2(horizontal * speed, vertical * speed);
+
+        LimitPos();
     }
 }

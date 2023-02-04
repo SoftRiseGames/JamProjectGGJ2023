@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class enemies : MonoBehaviour
 {
-
+    public WaweManager waweManager;
     public Transform character;
     public Rigidbody2D rb;
     
@@ -22,6 +22,8 @@ public class enemies : MonoBehaviour
 
     void Start()
     {
+        waweManager = GameObject.Find("Wawe Manager").GetComponent<WaweManager>();
+        character = GameObject.Find("character").transform;
         rb = GetComponent<Rigidbody2D>();
     }
 
@@ -93,6 +95,7 @@ public class enemies : MonoBehaviour
 
     void Death()
     {
+        waweManager.enemies.Remove(gameObject);
         Destroy(this.gameObject);
     }
 }

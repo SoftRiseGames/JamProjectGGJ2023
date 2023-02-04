@@ -18,6 +18,7 @@ public class gunScript : MonoBehaviour
 
     [SerializeField] CameraNoise noiseHandler;
     [SerializeField] Text gunText;
+    [SerializeField] Text bulletCount;
 
     
     /// ///////////////////77////////////////////
@@ -128,22 +129,24 @@ public class gunScript : MonoBehaviour
         GameObject bulletactivate = instance.activatepoolHP();
         GameObject bulletActivateXP = instance.activatepoolXP();
 
-        StartCoroutine(reload(reloadTimer));
         if (bullet != null && isHealth && ReloadGun>0)
         {
+            StartCoroutine(reload(reloadTimer));
             bulletactivate.gameObject.transform.position = bulletPoint.gameObject.transform.position;
             bulletactivate.gameObject.transform.rotation = this.gameObject.transform.rotation;
             bulletactivate.SetActive(true);
             noiseHandler.AddNoise(10);
-           
+            bulletCount.text = "Bullet Count: " + ReloadGun;  
         }
         else if(bulletxp != null && !isHealth && ReloadGun>0)
-        {
+        {       
+            StartCoroutine(reload(reloadTimer));
             bulletActivateXP.gameObject.transform.position = bulletPoint.gameObject.transform.position;
             bulletActivateXP.gameObject.transform.rotation = this.gameObject.transform.rotation;
             bulletActivateXP.SetActive(true);
             noiseHandler.AddNoise(10);
-        }      
+            bulletCount.text = "Bullet Count: " + ReloadGun;  
+        }
     }
      IEnumerator reload(float timer)
     {
@@ -153,7 +156,7 @@ public class gunScript : MonoBehaviour
             yield return new WaitForSeconds(timer);
             ReloadGun = BulletCount;
         }
-      
+        bulletCount.text = "Bullet Count: " + ReloadGun; 
     }
   
 
