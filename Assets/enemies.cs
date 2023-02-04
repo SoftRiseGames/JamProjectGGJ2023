@@ -4,67 +4,95 @@ using UnityEngine;
 
 public class enemies : MonoBehaviour
 {
-    public enemies instance;
+
     public Transform character;
     public Rigidbody2D rb;
-    float Distance;
+    
+    private bool inRange;
+    private bool onCooldown;
+    public float range;
+    
+    public GameObject enemyBullet;
+    public float basedHeatlh;
+    public float timeToShoot;
+    public int damage;
+    
+    public int xpReward;
+    public int hpReward;
 
-    public float basedHEatlh;
     void Start()
     {
-        if(instance == null)
-        {
-            instance = this;
-        }
-
         rb = GetComponent<Rigidbody2D>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        Distance = Vector2.Distance(this.gameObject.transform.position, character.gameObject.transform.position);
+        inRange = Vector2.Distance(this.gameObject.transform.position, character.gameObject.transform.position) < range;
+        
         enemyexen();
         enemyMovement();
-        Death();
+        TryShoot();
     }
 
     void enemyMovement()
     {
-        if(Distance>5)
+        if(inRange == false)
             transform.position = Vector2.MoveTowards(this.gameObject.transform.position, character.gameObject.transform.position, 0.01f);
-
-
-        Debug.Log("b");
     }
+
+    private void TryShoot(){
+        if(inRange == false)
+            return;
+
+        if(onCooldown)
+            return;
+
+        Shoot();      
+    }
+
+    private void Reload(){
+        onCooldown = false;
+    }
+
+    private void Shoot(){
+        onCooldown = true;
+        Instantiate(enemyBullet,transform.position,transform.rotation);
+        Invoke("Reload",timeToShoot);
+    }
+
+    private void Hurt(GameObject bullet, float damage){
+        bullet.SetActive(false);
+        basedHeatlh = basedHeatlh - character.GetComponent<gunScript>().HPgunPower;
+        
+        if(basedHeatlh < 0)
+            Death();
+    }
+
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.tag == "bullet")
-        {
-            //partikül
-            //ölüm 
-            collision.gameObject.SetActive(false);
-            basedHEatlh = basedHEatlh - character.GetComponent<gunScript>().HPgunPower;
-        }
-        else if(collision.gameObject.tag == "bulletXP")
-        {
-            //partikül
-            //destroy
-            collision.gameObject.SetActive(false);
-            basedHEatlh = basedHEatlh - character.GetComponent<gunScript>().XPgunPower;
+        if(collision.gameObject.tag == "bullet"){
+            Hurt(collision.gameObject,character.GetComponent<gunScript>().HPgunPower);
+            character.GetComponent<Stats>().AddHP(hpReward);
+        }        
 
+        
+        if(collision.gameObject.tag == "bulletXP"){
+            Hurt(collision.gameObject,character.GetComponent<gunScript>().XPgunPower);
+            character.GetComponent<Stats>().AddXP(xpReward);
         }
+
     }
     void enemyexen()
     {
-        Vector3 targetrotation = GameObject.Find("character").transform.position - transform.position;
+        Vector3 targetrotation = character.transform.position - transform.position;
         float rotateZ = Mathf.Atan2(targetrotation.y, targetrotation.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0f, 0f, rotateZ);
     }
 
     void Death()
     {
-        if (basedHEatlh <= 0)
-            Destroy(this.gameObject);
+        Destroy(this.gameObject);
     }
 }

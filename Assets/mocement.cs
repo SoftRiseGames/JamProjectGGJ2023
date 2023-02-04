@@ -4,16 +4,13 @@ using UnityEngine;
 
 public class mocement : MonoBehaviour
 {
-    public float horizontal;
-    public float vertical;
-    public Rigidbody2D rb;
+    private float horizontal;
+    private float vertical;
+    
+    [SerializeField] float speed;
+    [SerializeField] Rigidbody2D rb;
+    
     Vector3 mouseExens;
-    void Start()
-    {
-       
-        rb = GetComponent<Rigidbody2D>();
-        
-    }
 
     // Update is called once per frame
     void Update()
@@ -28,6 +25,6 @@ public class mocement : MonoBehaviour
 
         horizontal = Input.GetAxis("Horizontal");
         vertical = Input.GetAxis("Vertical");
-        rb.velocity = new Vector2(horizontal * 20, vertical * 20);
+        rb.velocity = new Vector2(horizontal * speed, vertical * speed);
     }
 }

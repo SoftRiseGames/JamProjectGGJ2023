@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class gunScript : MonoBehaviour
 {
@@ -14,6 +15,9 @@ public class gunScript : MonoBehaviour
     public bool isHealth;
     public int edge;
     [SerializeField] Transform bulletPoint;
+
+    [SerializeField] CameraNoise noiseHandler;
+    [SerializeField] Text gunText;
 
     
     /// ///////////////////77////////////////////
@@ -54,10 +58,12 @@ public class gunScript : MonoBehaviour
         if (Input.GetKey(KeyCode.Alpha1))
         {
             isHealth = true;
+            gunText.text = "Current Gun = HP Gun";
         }
         else if (Input.GetKey(KeyCode.Alpha2))
         {
             isHealth = false;
+            gunText.text = "Current Gun = XP Gun";
         }
 
         if (isHealth)
@@ -121,13 +127,14 @@ public class gunScript : MonoBehaviour
     {
         GameObject bulletactivate = instance.activatepoolHP();
         GameObject bulletActivateXP = instance.activatepoolXP();
+
         StartCoroutine(reload(reloadTimer));
         if (bullet != null && isHealth && ReloadGun>0)
         {
             bulletactivate.gameObject.transform.position = bulletPoint.gameObject.transform.position;
             bulletactivate.gameObject.transform.rotation = this.gameObject.transform.rotation;
             bulletactivate.SetActive(true);
-            Debug.Log("hp");
+            noiseHandler.AddNoise(10);
            
         }
         else if(bulletxp != null && !isHealth && ReloadGun>0)
@@ -135,9 +142,8 @@ public class gunScript : MonoBehaviour
             bulletActivateXP.gameObject.transform.position = bulletPoint.gameObject.transform.position;
             bulletActivateXP.gameObject.transform.rotation = this.gameObject.transform.rotation;
             bulletActivateXP.SetActive(true);
-            Debug.Log("xp");
-        }
-       
+            noiseHandler.AddNoise(10);
+        }      
     }
      IEnumerator reload(float timer)
     {

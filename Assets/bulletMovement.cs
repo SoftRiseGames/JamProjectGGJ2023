@@ -5,6 +5,7 @@ using UnityEngine;
 public class bulletMovement : MonoBehaviour
 {
     public Rigidbody2D rb;
+    public float bulletSpeed;
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -13,7 +14,7 @@ public class bulletMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        rb.velocity = transform.right * 50;
+        rb.velocity = transform.right * bulletSpeed;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
