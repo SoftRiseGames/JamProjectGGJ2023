@@ -17,7 +17,7 @@ public class bulletMovement : MonoBehaviour
         rb.velocity = transform.right * bulletSpeed;
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "deathZone")
             this.gameObject.SetActive(false);

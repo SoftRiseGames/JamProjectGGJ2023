@@ -8,7 +8,7 @@ public class Stats : MonoBehaviour
     public int level;
     public int nextLevel;
     public float multiplier;
-
+    public GameObject levelScreen;
     public int xp;
     public int hp;
 
@@ -30,10 +30,14 @@ public class Stats : MonoBehaviour
         xp -= nextLevel;
         level++;
         nextLevel = (int)(nextLevel * multiplier);
-        xpText.text = "Level: " + level + " - " + xp + " / " + nextLevel; 
-
-        if(xp > nextLevel)
+        xpText.text = "Level: " + level + " - " + xp + " / " + nextLevel;
+        levelScreen.SetActive(true);
+        Time.timeScale = 0;
+        if (xp > nextLevel)
+        {
             LevelUp();
+        }
+            
     }
 
     private void Hurt(enemies enemy){
@@ -67,4 +71,7 @@ public class Stats : MonoBehaviour
         }
 
     }
+
+   
+
 }
