@@ -13,9 +13,10 @@ GameObject:
   - component: {fileID: 6330139357970513870}
   - component: {fileID: -7659902122996666905}
   - component: {fileID: 4518787677162634832}
+  - component: {fileID: 1923503108913613591}
   m_Layer: 0
-  m_Name: bullet
-  m_TagString: bullet
+  m_Name: enemyBullet
+  m_TagString: enemyBullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -48,7 +49,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: -7659902122996666905}
-  bulletSpeed: 50
+  bulletSpeed: 20
 --- !u!212 &6330139357970513870
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -148,3 +149,16 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &1923503108913613591
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4038380245263640744}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6164d493f5367044f8e29703cdeee11c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 5
