@@ -16,6 +16,7 @@ public class ButtonManager : MonoBehaviour
         rewards = GameObject.Find("Enemy").GetComponent<enemies>();
     }
 
+    
     private IEnumerator Continue(){
         yield return new WaitForSecondsRealtime(1);
         Time.timeScale = 1;
