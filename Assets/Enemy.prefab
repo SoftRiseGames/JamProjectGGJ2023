@@ -105,6 +105,12 @@ MonoBehaviour:
   rb: {fileID: 5010046434976348153}
   particle: {fileID: 4767968139777939245, guid: a04adf5ec7ee4d64fa9019c63934f62a, type: 3}
   range: 8
+  roots:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   enemyBullet: {fileID: 4038380245263640744, guid: d9820cd3f6dcebd4da015e4dd445b2f7, type: 3}
   basedHeatlh: 100
   timeToShoot: 2

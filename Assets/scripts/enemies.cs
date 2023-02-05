@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using TMPro;
 public class enemies : MonoBehaviour
 {
     public WaweManager waweManager;
@@ -11,7 +11,7 @@ public class enemies : MonoBehaviour
     private bool inRange;
     private bool onCooldown;
     public float range;
-    
+    public GameObject[] roots;
     public GameObject enemyBullet;
     public float basedHeatlh;
     public float timeToShoot;
@@ -23,6 +23,8 @@ public class enemies : MonoBehaviour
     public float maxrange;
     public float minrange;
     float randomize;
+    int randomArray;
+    GameObject target;
 
     void Start()
     {
@@ -30,17 +32,22 @@ public class enemies : MonoBehaviour
         character = GameObject.Find("character").transform;
         rb = GetComponent<Rigidbody2D>();
         range = Random.Range(minrange, maxrange);
-
+        randomize = Random.Range(0, 100);
         if (instance == null)
             instance = this;
+        randomArray = Random.Range(0, roots.Length);
+
+        if (randomize > 100)
+            target = character.gameObject;
+        else
+            target = roots[randomArray];
     }
 
     // Update is called once per frame
     void Update()
     {
         
-        inRange = Vector2.Distance(this.gameObject.transform.position, character.gameObject.transform.position) < range;
-       
+        inRange = Vector2.Distance(this.gameObject.transform.position, target.gameObject.transform.position) < range;
         enemyexen();
         enemyMovement();
         TryShoot();
@@ -49,7 +56,7 @@ public class enemies : MonoBehaviour
     void enemyMovement()
     {
         if(inRange == false && Time.timeScale == 1)
-            transform.position = Vector2.MoveTowards(this.gameObject.transform.position, character.gameObject.transform.position,0.02f);
+            transform.position = Vector2.MoveTowards(this.gameObject.transform.position, target.gameObject.transform.position,0.02f);
     }
 
     private void TryShoot(){
@@ -74,7 +81,7 @@ public class enemies : MonoBehaviour
 
     private void Hurt(GameObject bullet, float damage){
         bullet.SetActive(false);
-        basedHeatlh = basedHeatlh - character.GetComponent<gunScript>().HPgunPower;
+        basedHeatlh = basedHeatlh - damage;
 
         if (basedHeatlh <= 0)
             Death();
@@ -101,7 +108,7 @@ public class enemies : MonoBehaviour
     }
     void enemyexen()
     {
-        Vector3 targetrotation = character.transform.position - transform.position;
+        Vector3 targetrotation = target.transform.position - transform.position;
         float rotateZ = Mathf.Atan2(targetrotation.y, targetrotation.x) * Mathf.Rad2Deg;
         transform.rotation = Quaternion.Euler(0f, 0f, rotateZ);
     }
