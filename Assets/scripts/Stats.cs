@@ -13,16 +13,13 @@ public class Stats : MonoBehaviour
     public int xp;
     public int hp;
 
-    public Text xpText,hpText;
 
     public void AddHP(int amount){
         hp = Mathf.Clamp(hp + amount,0,maxHP);
-        hpText.text = "HP: " + hp;
     }
 
     public void AddXP(int amount){
         xp += amount;
-        xpText.text = "Level: " + level + " - " + xp + " / " + nextLevel; 
         if(xp >= nextLevel)
             LevelUp();
     }
@@ -31,7 +28,6 @@ public class Stats : MonoBehaviour
         xp -= nextLevel;
         level++;
         nextLevel = (int)(nextLevel * multiplier);
-        xpText.text = "Level: " + level + " - " + xp + " / " + nextLevel;
         levelScreen.SetActive(true);
         Time.timeScale = 0;
         if (xp > nextLevel)
@@ -42,8 +38,7 @@ public class Stats : MonoBehaviour
     }
 
     private void Hurt(enemies enemy){
-        hp -= enemy.damage;
-        hpText.text = "HP: " + hp;     
+        hp -= enemy.damage;  
 
         if(hp <= 0)
             Death();
@@ -51,8 +46,7 @@ public class Stats : MonoBehaviour
     }
 
     private void Hurt(EnemyBulletDamage enemy){
-        hp -= enemy.damage;
-        hpText.text = "HP: " + hp;     
+        hp -= enemy.damage; 
 
         if(hp <= 0)
             Death();
@@ -71,10 +65,5 @@ public class Stats : MonoBehaviour
 
         if(collider2D.gameObject.CompareTag("Enemy"))
             Hurt(collider2D.gameObject.GetComponent<enemies>());
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision2D){
-        
-
     }
 }

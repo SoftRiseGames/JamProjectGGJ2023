@@ -109,9 +109,10 @@ MonoBehaviour:
   basedHeatlh: 100
   timeToShoot: 2
   damage: 10
-  xpReward: 5
+  instance: {fileID: 0}
+  xpReward: 3
   hpReward: 1
-  maxrange: 2
+  maxrange: 4
   minrange: 20
 --- !u!50 &5010046434976348153
 Rigidbody2D:

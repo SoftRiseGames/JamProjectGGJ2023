@@ -48,7 +48,7 @@ public class enemies : MonoBehaviour
 
     void enemyMovement()
     {
-        if(inRange == false)
+        if(inRange == false && Time.timeScale == 1)
             transform.position = Vector2.MoveTowards(this.gameObject.transform.position, character.gameObject.transform.position,0.02f);
     }
 

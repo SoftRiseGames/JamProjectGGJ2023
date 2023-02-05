@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class WaweManager : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class WaweManager : MonoBehaviour
     public List<Vector2> spawnPositions;
     public List<GameObject> enemies;
 
+    public int wawes = 0;
+
     public float hordeDifficulty; //Düşman sayısı
     public float statDifficulty;  //Stat Bonusları
     
@@ -18,6 +21,7 @@ public class WaweManager : MonoBehaviour
     public float statDifficultyMultiplier;
 
     public void NextWawe(){
+        wawes++;
         hordeDifficulty = Mathf.Clamp(hordeDifficulty * hordeDifficultyMultiplier,0,maxHordeDifficulty);
         statDifficulty *= statDifficultyMultiplier;
         SummonEnemies();

@@ -67,12 +67,12 @@ public class gunScript : MonoBehaviour
         if (Input.GetKey(KeyCode.Alpha1))
         {
             isHealth = true;
-            gunText.text = "Current Gun = HP Gun";
+            gunText.text = "Using HP Gun";
         }
         else if (Input.GetKey(KeyCode.Alpha2))
         {
             isHealth = false;
-            gunText.text = "Current Gun = XP Gun";
+            gunText.text = "Using XP Gun";
         }
 
         if (isHealth)
@@ -144,7 +144,7 @@ public class gunScript : MonoBehaviour
             bulletactivate.gameObject.transform.rotation = this.gameObject.transform.rotation;
             bulletactivate.SetActive(true);
             noiseHandler.AddNoise(10);
-            bulletCount.text = "Bullet Count: " + ReloadGun;  
+            bulletCount.text = "Bullets " + ReloadGun;  
         }
         else if(bulletxp != null && !isHealth && ReloadGun>0)
         {       
@@ -154,7 +154,7 @@ public class gunScript : MonoBehaviour
             bulletActivateXP.SetActive(true);
             gunXP.GetComponent<Animator>().SetBool("isXPok", true);
             noiseHandler.AddNoise(10);
-            bulletCount.text = "Bullet Count: " + ReloadGun;  
+            bulletCount.text = "Bullets " + ReloadGun;  
         }
 
       
@@ -167,7 +167,7 @@ public class gunScript : MonoBehaviour
             yield return new WaitForSeconds(timer);
             ReloadGun = BulletCount;
         }
-        bulletCount.text = "Bullet Count: " + ReloadGun; 
+        bulletCount.text = "Bullets " + ReloadGun; 
     }
   
 
